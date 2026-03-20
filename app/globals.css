@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -14,15 +16,18 @@
 
 @layer base {
   :root {
-    --background: #f4f7f6;
-    --foreground: #111827;
-    --accent-purple: #111827; 
-    --accent-cyan: #111827;
-    --muted: #4b5563;
-    --border: #d1d5db;
+    --background: #ffffff;
+    --foreground: #0d0d14;
+    --accent-purple: #7c5cbf;
+    --accent-cyan: #22d3ee;
+    --muted: #6b7280;
+    --border: #e5e0f5;
     
-    --glass-bg: rgba(255, 255, 255, 0.4);
-    --glass-border: rgba(255, 255, 255, 0.5);
+    --accent-purple-rgb: 124, 92, 191;
+    --accent-cyan-rgb: 34, 211, 238;
+    
+    --glass-bg: rgba(243, 240, 255, 0.55);
+    --glass-border: rgba(180, 160, 230, 0.35);
   }
   
   .dark {
@@ -32,6 +37,9 @@
     --accent-cyan: #22d3ee;
     --muted: #9ca3af;
     --border: #1f2937;
+    
+    --accent-purple-rgb: 168, 85, 247;
+    --accent-cyan-rgb: 34, 211, 238;
     
     --glass-bg: rgba(3, 3, 5, 0.4);
     --glass-border: rgba(255, 255, 255, 0.05);

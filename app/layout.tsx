@@ -3,6 +3,8 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
+import CreativePulse from "@/components/canvas/CreativePulse";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,14 +31,17 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${spaceGrotesk.variable} scroll-smooth`}
+      className={`${inter.variable} ${spaceGrotesk.variable}`}
     >
       <body className="antialiased bg-background text-foreground min-h-screen selection:bg-accent selection:text-white">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <CustomCursor />
-          <Navbar />
-          {children}
-        </ThemeProvider>
+        <SmoothScrollProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+            <CreativePulse />
+            <CustomCursor />
+            <Navbar />
+            {children}
+          </ThemeProvider>
+        </SmoothScrollProvider>
       </body>
     </html>
   );

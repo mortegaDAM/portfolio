@@ -20,13 +20,13 @@ function TrailDot({ mouseX, mouseY, index }: { mouseX: MotionValue<number>, mous
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-6 h-6 bg-accent-cyan rounded-full pointer-events-none z-[9998] mix-blend-screen"
+      className="fixed top-0 left-0 w-6 h-6 bg-accent-purple rounded-full pointer-events-none z-[9998]"
       style={{
         x,
         y,
         scale: Math.max(0.1, 1 - index * 0.1),
-        opacity: Math.max(0, 0.5 - index * 0.06),
-        filter: `blur(${2 + index * 1.5}px)`
+        opacity: Math.max(0, 0.4 - index * 0.05),
+        filter: `blur(${3 + index * 2}px)`
       }}
     />
   );
@@ -82,13 +82,13 @@ export default function CustomCursor() {
         
         {/* Aro Principal y Bolita Central */}
         <motion.div
-          className="fixed top-0 left-0 w-8 h-8 rounded-full border border-white/20 pointer-events-none z-[9999] hidden md:flex items-center justify-center bg-transparent backdrop-blur-[2px]"
+          className="fixed top-0 left-0 w-8 h-8 rounded-full border border-accent-purple/40 pointer-events-none z-[9999] hidden md:flex items-center justify-center bg-transparent backdrop-blur-[2px]"
           style={{
             x: ringX,
             y: ringY,
           }}
         >
-          <div className="w-1.5 h-1.5 bg-accent-purple rounded-full shadow-[0_0_10px_rgba(168,85,247,1)]" />
+          <div className="w-1.5 h-1.5 bg-accent-purple rounded-full shadow-[0_0_10px_rgba(var(--accent-purple-rgb),0.8)]" />
         </motion.div>
       </div>
     </>
