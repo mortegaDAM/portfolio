@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import SocialSidebar from "@/components/SocialSidebar";
 import CustomCursor from "@/components/CustomCursor";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
@@ -39,6 +40,7 @@ export default function RootLayout({
             <CreativePulse />
             <CustomCursor />
             <Navbar />
+            <SocialSidebar />
             {children}
           </ThemeProvider>
         </SmoothScrollProvider>

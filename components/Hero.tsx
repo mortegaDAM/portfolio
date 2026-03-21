@@ -29,7 +29,7 @@ export default function Hero() {
   }, [mouseX, mouseY, mouseMoved]);
 
   return (
-    <section id="home" className="relative w-full h-[80vh] flex flex-col items-center justify-center overflow-hidden">
+    <section id="home" className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Ocean Background */}
       <motion.div style={{ y: parallaxY }} className="absolute inset-x-0 -top-[20%] h-[140%] z-0 bg-background">
         <img
@@ -61,7 +61,7 @@ export default function Hero() {
           initial={{ opacity: 0, filter: "blur(10px)" }} animate={{ opacity: 1, filter: "blur(0px)" }} transition={{ delay: 0.3, duration: 0.8 }}
           className="text-accent-purple font-sans tracking-[0.2em] text-[10px] md:text-sm font-bold uppercase mb-4"
         >
-          Software Engineer Intern / Frontend Developer
+          FullStack Software Developer | Junior
         </motion.h2>
         <motion.h1
           initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5, duration: 1 }}
@@ -74,7 +74,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 1 }}
           className="text-muted text-sm md:text-base max-w-2xl mx-auto leading-relaxed"
         >
-          Desarrollador enfocado en producto. Mi diferencial es mi capacidad analítica para entender requisitos de negocio y traducirlos en código escalable, limpio y mantenible. Prospero refactorizando sistemas existentes y priorizando la UX real.
+          Transforming complex business requirements into scalable, high-performance web experiences. Full Stack Developer bridging the gap between clean code and real-world impact.
         </motion.p>
       </motion.div>
     </section>
