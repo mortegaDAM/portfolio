@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const ImageGallery = ({
   mainLight = "https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=800&auto=format&fit=crop",
@@ -34,140 +35,145 @@ const ImageGallery = ({
     fontSub: string,
     stats: { value: string, label: string, color: string }[]
   }
-}) => (
-  <div className="flex flex-col gap-6 mt-12">
-    {/* Row 1 */}
-    <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6">
-      <motion.div
-        whileHover={{ scale: 0.98 }}
-        className="group relative glass rounded-2xl border-black/5 dark:border-white/10 overflow-hidden aspect-video shadow-[0_4px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_0_30px_rgba(var(--accent-purple-rgb),0.2),inset_0_0_0_1px_rgba(var(--accent-purple-rgb),0.5)] transition-all duration-500 flex flex-col items-center justify-center"
-      >
-        <div className="flex-1 bg-[#e8e3f8] dark:bg-[#174b4d] flex items-center justify-center p-4 md:p-8">
-          {isReal ? (
-            <div className="w-full h-full flex flex-col rounded-xl md:rounded-2xl overflow-hidden border border-black/10 dark:border-white/20 shadow-2xl z-10 bg-white dark:bg-[#050505]">
-              {/* Mac Browser Header */}
-              <div className="h-6 md:h-8 w-full flex-shrink-0 bg-[#f1f1f1] dark:bg-[#1a1a1a] flex items-center px-3 gap-1.5 md:gap-2 border-b border-black/5 dark:border-white/10">
-                <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ff5f56]" />
-                <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ffbd2e]" />
-                <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#27c93f]" />
+}) => {
+  const isMobile = useIsMobile();
+  const hoverScale = isMobile ? undefined : 0.98;
+
+  return (
+    <div className="flex flex-col gap-6 mt-12">
+      {/* Row 1 */}
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6">
+        <motion.div
+          whileHover={isMobile ? {} : { scale: 0.98 }}
+          className={`group relative glass rounded-2xl border-black/5 dark:border-white/10 overflow-hidden aspect-video shadow-[0_4px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-500 flex flex-col items-center justify-center ${!isMobile ? 'hover:shadow-[0_0_30px_rgba(var(--accent-purple-rgb),0.2),inset_0_0_0_1px_rgba(var(--accent-purple-rgb),0.5)]' : ''}`}
+        >
+          <div className="flex-1 bg-[#e8e3f8] dark:bg-[#174b4d] flex items-center justify-center p-4 md:p-8">
+            {isReal ? (
+              <div className="w-full h-full flex flex-col rounded-xl md:rounded-2xl overflow-hidden border border-black/10 dark:border-white/20 shadow-2xl z-10 bg-white dark:bg-[#050505]">
+                {/* Mac Browser Header */}
+                <div className="h-6 md:h-8 w-full flex-shrink-0 bg-[#f1f1f1] dark:bg-[#1a1a1a] flex items-center px-3 gap-1.5 md:gap-2 border-b border-black/5 dark:border-white/10">
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ff5f56]" />
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ffbd2e]" />
+                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#27c93f]" />
+                </div>
+                {/* Browser Content */}
+                <div className="flex-1 overflow-hidden relative">
+                  <img src={mainLight} className="dark:hidden w-full h-full object-cover object-top" alt="Gallery Light" />
+                  <img src={mainDark} className="hidden dark:block w-full h-full object-cover object-top" alt="Gallery Dark" />
+                  {/* Privacy blur for the client's photo */}
+                  {mainBlur && (
+                    <div className="absolute inset-0 pointer-events-none">
+                      <div
+                        className="absolute backdrop-blur-lg"
+                        style={{ left: '51.5%', top: '12%', width: '31%', height: '63.5%', borderRadius: '8px' }}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-              {/* Browser Content */}
-              <div className="flex-1 overflow-hidden relative">
-                <img src={mainLight} className="dark:hidden w-full h-full object-cover object-top" alt="Gallery Light" />
-                <img src={mainDark} className="hidden dark:block w-full h-full object-cover object-top" alt="Gallery Dark" />
-                {/* Privacy blur for the client's photo */}
-                {mainBlur && (
-                  <div className="absolute inset-0 pointer-events-none">
-                    <div
-                      className="absolute backdrop-blur-lg"
-                      style={{ left: '51.5%', top: '12%', width: '31%', height: '63.5%', borderRadius: '8px' }}
-                    />
-                  </div>
+            ) : (
+              <div className="w-full h-full bg-white dark:bg-[#0a1220]/80 rounded-xl border border-black/5 dark:border-white/10 overflow-hidden relative flex flex-col items-center justify-center shadow-lg">
+                <img src={mainLight} className="w-[80%] h-[40%] object-cover opacity-80 dark:opacity-60 z-0 dark:mix-blend-screen" alt="Gallery" />
+                <div className="absolute inset-x-0 bottom-[10%] text-center z-10 pointer-events-none">
+                  <h3 className="text-2xl font-display tracking-[0.2em] font-light text-foreground dark:text-white opacity-80 decoration-accent-cyan underline underline-offset-8">PROJECT UI</h3>
+                </div>
+              </div>
+            )}
+          </div>
+        </motion.div>
+
+        <motion.div whileHover={isMobile ? {} : { scale: 0.98 }} className={`glass rounded-2xl border border-black/5 dark:border-white/10 transition-all duration-500 p-5 flex flex-col justify-between gap-3 bg-[#e8e3f8] dark:bg-[#174b4d] min-h-[300px] ${!isMobile ? 'hover:border-accent-cyan/50' : ''}`}>
+
+          {/* Color Palette row */}
+          <div className="w-full bg-white dark:bg-[#080d1a] rounded-xl p-4 border border-white/50 dark:border-white/10 shadow-sm dark:shadow-inner flex flex-col gap-2">
+            <span className="text-[9px] uppercase text-accent-cyan font-bold tracking-widest font-mono">Design Tokens</span>
+            <div className="flex gap-2 items-center mt-1">
+              {designInfo.tokens.map((color, i) => (
+                <div key={i} className="w-6 h-6 rounded-md shadow-md border border-black/10" style={{ backgroundColor: color }} title={color} />
+              ))}
+              <span className="text-[9px] ml-auto text-muted font-mono">{designInfo.tokens.length} tokens</span>
+            </div>
+          </div>
+
+          {/* Typography */}
+          <div className="w-full bg-white dark:bg-[#080d1a] rounded-xl p-4 border border-white/50 dark:border-white/10 shadow-sm dark:shadow-inner flex flex-col gap-0.5">
+            <span className="text-[9px] uppercase text-accent-purple font-bold tracking-widest font-mono">Typography</span>
+            <span className="text-lg font-display tracking-tight text-foreground dark:text-white">{designInfo.fontName}</span>
+            <span className="text-[9px] font-mono text-muted tracking-widest">{designInfo.fontSub}</span>
+          </div>
+
+          {/* Quick stats grid */}
+          <div className="grid grid-cols-2 gap-2">
+            {designInfo.stats.map((stat, i) => (
+              <div key={i} className="bg-white dark:bg-[#080d1a] rounded-xl p-3 border border-white/50 dark:border-white/10 flex flex-col gap-0.5 shadow-sm">
+                <span className={`text-base font-bold font-display ${stat.color || 'text-foreground dark:text-white'}`}>{stat.value}</span>
+                <span className="text-[9px] text-muted font-mono tracking-wider uppercase">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Row 2 */}
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-6">
+        <motion.div whileHover={isMobile ? {} : { scale: 0.98 }} className={`flex-1 glass rounded-2xl border border-black/5 dark:border-white/10 transition-all duration-500 overflow-hidden flex flex-col items-center justify-center p-6 bg-[#e8e3f8] dark:bg-[#174b4d] ${!isMobile ? 'hover:border-accent-cyan/50 hover:shadow-[0_0_30px_rgba(var(--accent-cyan-rgb),0.2)]' : ''}`}>
+          {/* Realistic CSS Laptop */}
+          <div className="flex flex-col items-center justify-center w-full max-w-[500px]">
+            {/* Laptop Screen with Bezel */}
+            <div className="relative w-[90%] aspect-[16/10] bg-gray-200 dark:bg-black rounded-t-xl md:rounded-t-2xl border-[6px] md:border-[8px] border-gray-200 dark:border-black p-0.5 md:p-1 flex flex-col justify-end shadow-xl z-10 box-content">
+              {/* Webcam dot */}
+              <div className="absolute top-1 left-1/2 -translate-x-1/2 w-1 h-1 md:w-1.5 md:h-1.5 bg-gray-400 dark:bg-zinc-800 rounded-full" />
+
+              {/* The screen rendering */}
+              <div className="w-full h-full bg-[#050505] overflow-hidden rounded-sm relative">
+                {isReal ? (
+                  <>
+                    <img src={laptopLight} className="dark:hidden w-full h-full object-cover object-top" alt="Mockup Light" />
+                    <img src={laptopDark} className="hidden dark:block w-full h-full object-cover object-top" alt="Mockup Dark" />
+                  </>
+                ) : (
+                  <img src={laptopLight} className="w-full h-full object-cover object-top opacity-60 dark:opacity-50 dark:mix-blend-screen" alt="Mockup" />
                 )}
               </div>
             </div>
-          ) : (
-            <div className="w-full h-full bg-white dark:bg-[#0a1220]/80 rounded-xl border border-black/5 dark:border-white/10 overflow-hidden relative flex flex-col items-center justify-center shadow-lg">
-              <img src={mainLight} className="w-[80%] h-[40%] object-cover opacity-80 dark:opacity-60 z-0 dark:mix-blend-screen" alt="Gallery" />
-              <div className="absolute inset-x-0 bottom-[10%] text-center z-10 pointer-events-none">
-                <h3 className="text-2xl font-display tracking-[0.2em] font-light text-foreground dark:text-white opacity-80 decoration-accent-cyan underline underline-offset-8">PROJECT UI</h3>
+
+            {/* Laptop Keyboard Base */}
+            <div className="relative w-full h-3 md:h-4 bg-gray-300 dark:bg-[#222] rounded-b-xl md:rounded-b-2xl shadow-[0_4px_10px_rgba(0,0,0,0.2)] dark:shadow-[0_4px_10px_rgba(0,0,0,0.8)] z-20 flex justify-center border-t border-white/50 dark:border-white/5">
+              {/* Trackpad notch */}
+              <div className="w-[15%] h-[40%] bg-gray-400 dark:bg-[#1a1a1a] rounded-b-md shadow-inner" />
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div whileHover={isMobile ? {} : { scale: 0.98 }} className={`flex-1 glass rounded-2xl border border-black/5 dark:border-white/10 transition-all duration-500 flex items-center justify-center relative overflow-hidden min-h-[400px] bg-[#e8e3f8] dark:bg-[#174b4d] ${!isMobile ? 'hover:border-accent-purple/50' : ''}`}>
+          <div className="w-[200px] h-[400px] bg-white dark:bg-[#080d1a] rounded-[2.5rem] border-[6px] border-white dark:border-[#040810] shadow-xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col items-center">
+            <div className="w-32 h-6 bg-white dark:bg-[#040810] absolute top-0 rounded-b-xl z-20 flex justify-center items-center gap-2 px-2 shadow-sm dark:shadow-none"><div className="w-10 h-1 rounded-full bg-black/10 dark:bg-white/10" /><div className="w-2 h-2 rounded-full bg-black/10 dark:bg-white/10" /></div>
+            {isReal ? (
+              <>
+                <img src={mobileLight} className="dark:hidden w-full h-full object-cover object-top z-10" alt="Phone UI Light" />
+                <img src={mobileDark} className="hidden dark:block w-full h-full object-cover object-top z-10" alt="Phone UI Dark" />
+                {/* Privacy blur for the client's photo */}
+                {mobileBlur && (
+                  <div
+                    className="absolute z-20 pointer-events-none backdrop-blur-lg"
+                    style={{ left: 0, right: 0, top: '15%', bottom: '25%' }}
+                  />
+                )}
+              </>
+            ) : (
+              <img src={mobileLight} className="w-full h-[60%] object-cover object-top z-10 opacity-80 dark:opacity-70 dark:mix-blend-screen" alt="Phone UI" />
+            )}
+            {!isReal && (
+              <div className="w-full flex-1 bg-gradient-to-b from-[#f4f7f6] dark:from-[#0a1220] to-white dark:to-[#040810] z-10 flex items-center justify-center p-4 text-center">
+                <span className="text-[10px] text-accent-cyan glass bg-white/80 dark:bg-white/5 px-4 py-2 rounded-full border border-black/5 dark:border-white/10 shadow-[0_0_15px_rgba(var(--accent-cyan-rgb),0.2)]">Mobile App</span>
               </div>
-            </div>
-          )}
-        </div>
-      </motion.div>
-
-      <motion.div whileHover={{ scale: 0.98 }} className="glass rounded-2xl border border-black/5 dark:border-white/10 hover:border-accent-cyan/50 transition-all duration-500 p-5 flex flex-col justify-between gap-3 bg-[#e8e3f8] dark:bg-[#174b4d] min-h-[300px]">
-
-        {/* Color Palette row */}
-        <div className="w-full bg-white dark:bg-[#080d1a] rounded-xl p-4 border border-white/50 dark:border-white/10 shadow-sm dark:shadow-inner flex flex-col gap-2">
-          <span className="text-[9px] uppercase text-accent-cyan font-bold tracking-widest font-mono">Design Tokens</span>
-          <div className="flex gap-2 items-center mt-1">
-            {designInfo.tokens.map((color, i) => (
-              <div key={i} className="w-6 h-6 rounded-md shadow-md border border-black/10" style={{ backgroundColor: color }} title={color} />
-            ))}
-            <span className="text-[9px] ml-auto text-muted font-mono">{designInfo.tokens.length} tokens</span>
+            )}
           </div>
-        </div>
-
-        {/* Typography */}
-        <div className="w-full bg-white dark:bg-[#080d1a] rounded-xl p-4 border border-white/50 dark:border-white/10 shadow-sm dark:shadow-inner flex flex-col gap-0.5">
-          <span className="text-[9px] uppercase text-accent-purple font-bold tracking-widest font-mono">Typography</span>
-          <span className="text-lg font-display tracking-tight text-foreground dark:text-white">{designInfo.fontName}</span>
-          <span className="text-[9px] font-mono text-muted tracking-widest">{designInfo.fontSub}</span>
-        </div>
-
-        {/* Quick stats grid */}
-        <div className="grid grid-cols-2 gap-2">
-          {designInfo.stats.map((stat, i) => (
-            <div key={i} className="bg-white dark:bg-[#080d1a] rounded-xl p-3 border border-white/50 dark:border-white/10 flex flex-col gap-0.5 shadow-sm">
-              <span className={`text-base font-bold font-display ${stat.color || 'text-foreground dark:text-white'}`}>{stat.value}</span>
-              <span className="text-[9px] text-muted font-mono tracking-wider uppercase">{stat.label}</span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
-
-    {/* Row 2 */}
-    <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-6">
-      <motion.div whileHover={{ scale: 0.98 }} className="flex-1 glass rounded-2xl border border-black/5 dark:border-white/10 hover:border-accent-cyan/50 hover:shadow-[0_0_30px_rgba(var(--accent-cyan-rgb),0.2)] transition-all duration-500 overflow-hidden flex flex-col items-center justify-center p-6 bg-[#e8e3f8] dark:bg-[#174b4d]">
-        {/* Realistic CSS Laptop */}
-        <div className="flex flex-col items-center justify-center w-full max-w-[500px]">
-          {/* Laptop Screen with Bezel */}
-          <div className="relative w-[90%] aspect-[16/10] bg-gray-200 dark:bg-black rounded-t-xl md:rounded-t-2xl border-[6px] md:border-[8px] border-gray-200 dark:border-black p-0.5 md:p-1 flex flex-col justify-end shadow-xl z-10 box-content">
-            {/* Webcam dot */}
-            <div className="absolute top-1 left-1/2 -translate-x-1/2 w-1 h-1 md:w-1.5 md:h-1.5 bg-gray-400 dark:bg-zinc-800 rounded-full" />
-
-            {/* The screen rendering */}
-            <div className="w-full h-full bg-[#050505] overflow-hidden rounded-sm relative">
-              {isReal ? (
-                <>
-                  <img src={laptopLight} className="dark:hidden w-full h-full object-cover object-top" alt="Mockup Light" />
-                  <img src={laptopDark} className="hidden dark:block w-full h-full object-cover object-top" alt="Mockup Dark" />
-                </>
-              ) : (
-                <img src={laptopLight} className="w-full h-full object-cover object-top opacity-60 dark:opacity-50 dark:mix-blend-screen" alt="Mockup" />
-              )}
-            </div>
-          </div>
-
-          {/* Laptop Keyboard Base */}
-          <div className="relative w-full h-3 md:h-4 bg-gray-300 dark:bg-[#222] rounded-b-xl md:rounded-b-2xl shadow-[0_4px_10px_rgba(0,0,0,0.2)] dark:shadow-[0_4px_10px_rgba(0,0,0,0.8)] z-20 flex justify-center border-t border-white/50 dark:border-white/5">
-            {/* Trackpad notch */}
-            <div className="w-[15%] h-[40%] bg-gray-400 dark:bg-[#1a1a1a] rounded-b-md shadow-inner" />
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div whileHover={{ scale: 0.98 }} className="flex-1 glass rounded-2xl border border-black/5 dark:border-white/10 hover:border-accent-purple/50 transition-all duration-500 flex items-center justify-center relative overflow-hidden min-h-[400px] bg-[#e8e3f8] dark:bg-[#174b4d]">
-        <div className="w-[200px] h-[400px] bg-white dark:bg-[#080d1a] rounded-[2.5rem] border-[6px] border-white dark:border-[#040810] shadow-xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col items-center">
-          <div className="w-32 h-6 bg-white dark:bg-[#040810] absolute top-0 rounded-b-xl z-20 flex justify-center items-center gap-2 px-2 shadow-sm dark:shadow-none"><div className="w-10 h-1 rounded-full bg-black/10 dark:bg-white/10" /><div className="w-2 h-2 rounded-full bg-black/10 dark:bg-white/10" /></div>
-          {isReal ? (
-            <>
-              <img src={mobileLight} className="dark:hidden w-full h-full object-cover object-top z-10" alt="Phone UI Light" />
-              <img src={mobileDark} className="hidden dark:block w-full h-full object-cover object-top z-10" alt="Phone UI Dark" />
-              {/* Privacy blur for the client's photo */}
-              {mobileBlur && (
-                <div
-                  className="absolute z-20 pointer-events-none backdrop-blur-lg"
-                  style={{ left: 0, right: 0, top: '15%', bottom: '25%' }}
-                />
-              )}
-            </>
-          ) : (
-            <img src={mobileLight} className="w-full h-[60%] object-cover object-top z-10 opacity-80 dark:opacity-70 dark:mix-blend-screen" alt="Phone UI" />
-          )}
-          {!isReal && (
-            <div className="w-full flex-1 bg-gradient-to-b from-[#f4f7f6] dark:from-[#0a1220] to-white dark:to-[#040810] z-10 flex items-center justify-center p-4 text-center">
-              <span className="text-[10px] text-accent-cyan glass bg-white/80 dark:bg-white/5 px-4 py-2 rounded-full border border-black/5 dark:border-white/10 shadow-[0_0_15px_rgba(var(--accent-cyan-rgb),0.2)]">Mobile App</span>
-            </div>
-          )}
-        </div>
-      </motion.div>
-    </div>
-  </div>
-);
+  );
+};
 
 export default function ProjectGallery() {
   return (

@@ -6,8 +6,10 @@ import Link from "next/link";
 import { Star, Sun, Moon, Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function Navbar() {
+  const isMobile = useIsMobile();
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [isHoveringTop, setIsHoveringTop] = useState(false);
@@ -61,8 +63,10 @@ export default function Navbar() {
     }
   }, [isMenuOpen]);
 
-  // Track mouse proximity to the top of the screen
+  // Track mouse proximity to the top of the screen (Disabled on mobile)
   useEffect(() => {
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (e.clientY < 120) {
         setIsHoveringTop(true);
@@ -72,7 +76,7 @@ export default function Navbar() {
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isMobile]);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     if (y > 50 && y > lastYPos) {

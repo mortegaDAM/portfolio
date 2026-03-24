@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function Hero() {
+  const isMobile = useIsMobile();
   const { scrollY } = useScroll();
   const parallaxY = useTransform(scrollY, [0, 800], [0, -100]);
 
@@ -18,6 +20,8 @@ export default function Hero() {
   const [mouseMoved, setMouseMoved] = useState(false);
 
   useEffect(() => {
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!mouseMoved) setMouseMoved(true);
       mouseX.set(e.clientX);
@@ -26,7 +30,7 @@ export default function Hero() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY, mouseMoved]);
+  }, [mouseX, mouseY, mouseMoved, isMobile]);
 
   return (
     <section id="home" className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -41,15 +45,17 @@ export default function Hero() {
         <div className="absolute inset-0 dark:bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] dark:bg-[length:100%_4px] dark:opacity-20 pointer-events-none" />
       </motion.div>
 
-      {/* Background glowing orb following mouse */}
-      <motion.div
-        className="absolute top-0 left-0 w-[30vw] h-[30vw] -ml-[15vw] -mt-[15vw] bg-accent-purple/20 rounded-full blur-[100px] pointer-events-none z-0 dark:mix-blend-screen transition-opacity duration-1000"
-        style={{
-          x: smoothMouseX,
-          y: smoothMouseY,
-          opacity: mouseMoved ? 1 : 0
-        }}
-      />
+      {/* Background glowing orb following mouse (Disabled on mobile) */}
+      {!isMobile && (
+        <motion.div
+          className="absolute top-0 left-0 w-[30vw] h-[30vw] -ml-[15vw] -mt-[15vw] bg-accent-purple/20 rounded-full blur-[100px] pointer-events-none z-0 dark:mix-blend-screen transition-opacity duration-1000"
+          style={{
+            x: smoothMouseX,
+            y: smoothMouseY,
+            opacity: mouseMoved ? 1 : 0
+          }}
+        />
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}

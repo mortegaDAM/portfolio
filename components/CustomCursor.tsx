@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 function TrailDot({ mouseX, mouseY, index }: { mouseX: MotionValue<number>, mouseY: MotionValue<number>, index: number }) {
   // Incrementar la masa y la amortiguación (damping) progresivamente para crear el retardo continuo del humo
@@ -33,6 +34,7 @@ function TrailDot({ mouseX, mouseY, index }: { mouseX: MotionValue<number>, mous
 }
 
 export default function CustomCursor() {
+  const isMobile = useIsMobile();
   const [isVisible, setIsVisible] = useState(false);
   
   // El trackeado real del ratón
@@ -49,6 +51,8 @@ export default function CustomCursor() {
   const ringY = useTransform(springY, v => v - 16);
 
   useEffect(() => {
+    if (isMobile) return;
+
     const moveCursor = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -67,7 +71,9 @@ export default function CustomCursor() {
       document.documentElement.removeEventListener("mouseleave", handleMouseLeave);
       document.documentElement.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, [mouseX, mouseY, isVisible, isMobile]);
+
+  if (isMobile) return null;
 
   // Dibujar 8 piezas de la cola (rastro de humo)
   const trailArray = Array.from({ length: 8 });

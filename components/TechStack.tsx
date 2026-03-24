@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import {
   Box,
   Server,
@@ -27,15 +28,17 @@ const arsenalTools = [
   "Git", "GitHub", "Vercel", "VS Code", "REST APIs", "Node.js", "JavaScript (ES6+)",
 ];
 
-const SkillBadge = ({ icon: Icon, text, color }: { icon: any, text: string, color: string }) => (
-  <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-[#030305]/90 backdrop-blur-md rounded-xl border border-black/5 dark:border-white/10 shadow-sm relative overflow-hidden group hover:scale-105 transition-transform duration-300">
-    <div className={`absolute inset-0 bg-current opacity-0 group-hover:opacity-5 transition-opacity duration-300 ${color}`} />
+const SkillBadge = ({ icon: Icon, text, color, isMobile }: { icon: any, text: string, color: string, isMobile: boolean }) => (
+  <div className={`flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-[#030305]/90 backdrop-blur-md rounded-xl border border-black/5 dark:border-white/10 shadow-sm relative overflow-hidden group ${!isMobile ? 'hover:scale-105 transition-transform duration-300' : ''}`}>
+    {!isMobile && <div className={`absolute inset-0 bg-current opacity-0 group-hover:opacity-5 transition-opacity duration-300 ${color}`} />}
     <Icon className={`w-4 h-4 md:w-5 md:h-5 ${color} drop-shadow-[0_0_8px_currentColor]`} strokeWidth={1.5} />
     <span className="text-[10px] md:text-xs font-bold tracking-widest text-foreground dark:text-[#a1a1aa] whitespace-nowrap uppercase">{text}</span>
   </div>
 );
 
 export default function TechStack() {
+  const isMobile = useIsMobile();
+
   return (
     <section id="skills" className="w-full max-w-7xl mx-auto px-4 md:px-8 py-24 flex flex-col items-center z-10 relative">
       <style>{`
@@ -46,9 +49,11 @@ export default function TechStack() {
         .animate-marquee {
           animation: marquee 40s linear infinite;
         }
+        ${!isMobile ? `
         .animate-marquee:hover {
           animation-play-state: paused;
         }
+        ` : ''}
       `}</style>
 
       <h4 className="text-accent-purple text-[10px] md:text-[11px] font-bold tracking-[0.25em] mb-4 uppercase drop-shadow-[0_0_15px_rgba(var(--accent-purple-rgb),0.5)]">TECH STACK</h4>
@@ -59,10 +64,10 @@ export default function TechStack() {
 
         {/* 1. FRONTEND CORE (Large) */}
         <motion.div
-          whileHover={{ y: -5 }}
+          whileHover={isMobile ? {} : { y: -5 }}
           className="col-span-1 md:col-span-2 md:row-span-2 flex flex-col p-8 md:p-10 rounded-[2rem] bg-white/50 dark:bg-[#030305]/60 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_10px_40px_rgba(124,92,191,0.08)] dark:shadow-[0_0_40px_rgba(0,0,0,0.5)] relative overflow-hidden group"
         >
-          <div className="absolute -top-20 -right-20 w-64 h-64 bg-accent-purple/10 rounded-full blur-[60px] pointer-events-none group-hover:bg-accent-purple/20 transition-colors duration-500" />
+          <div className={`absolute -top-20 -right-20 w-64 h-64 bg-accent-purple/10 rounded-full blur-[60px] pointer-events-none ${!isMobile ? 'group-hover:bg-accent-purple/20 transition-colors duration-500' : ''}`} />
 
           <div className="relative z-10 flex-grow">
             <h3 className="text-2xl font-display font-bold text-foreground mb-3 flex items-center gap-3 uppercase tracking-tighter">
@@ -74,20 +79,20 @@ export default function TechStack() {
           </div>
 
           <div className="flex flex-wrap gap-3 relative z-10">
-            <SkillBadge icon={Box} text="React" color="text-accent-cyan" />
-            <SkillBadge icon={Box} text="Angular" color="text-[#DD0031]" />
-            <SkillBadge icon={Code2} text="Next.js 14" color="text-foreground" />
-            <SkillBadge icon={ShieldCheck} text="TypeScript" color="text-[#3178C6]" />
-            <SkillBadge icon={Terminal} text="JavaScript" color="text-[#F7DF1E]" />
+            <SkillBadge icon={Box} text="React" color="text-accent-cyan" isMobile={isMobile} />
+            <SkillBadge icon={Box} text="Angular" color="text-[#DD0031]" isMobile={isMobile} />
+            <SkillBadge icon={Code2} text="Next.js 14" color="text-foreground" isMobile={isMobile} />
+            <SkillBadge icon={ShieldCheck} text="TypeScript" color="text-[#3178C6]" isMobile={isMobile} />
+            <SkillBadge icon={Terminal} text="JavaScript" color="text-[#F7DF1E]" isMobile={isMobile} />
           </div>
         </motion.div>
 
         {/* 2. STYLING & ANIMATION */}
         <motion.div
-          whileHover={{ y: -5 }}
+          whileHover={isMobile ? {} : { y: -5 }}
           className="col-span-1 md:col-span-2 md:row-span-1 flex flex-col p-8 rounded-[2rem] bg-gradient-to-br from-white/50 to-white/30 dark:from-[#030305]/60 dark:to-transparent backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.03)] dark:shadow-[0_0_40px_rgba(0,0,0,0.5)] relative overflow-hidden group"
         >
-          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-accent-cyan/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-accent-cyan/20 transition-colors duration-500" />
+          <div className={`absolute -bottom-10 -left-10 w-40 h-40 bg-accent-cyan/10 rounded-full blur-[40px] pointer-events-none ${!isMobile ? 'group-hover:bg-accent-cyan/20 transition-colors duration-500' : ''}`} />
 
           <h3 className="text-xl font-display font-bold text-foreground mb-2 flex items-center gap-3 uppercase tracking-tighter relative z-10">
             <Flame className="text-accent-cyan" size={24} /> Styling & Animation
@@ -95,28 +100,28 @@ export default function TechStack() {
           <p className="text-xs text-muted mb-6 relative z-10">Pixel-perfect UIs, 60fps animations, responsive systems.</p>
 
           <div className="flex flex-wrap gap-3 relative z-10 mt-auto">
-            <SkillBadge icon={Mountain} text="Tailwind CSS" color="text-accent-cyan" />
-            <SkillBadge icon={Mountain} text="Bootstrap 5" color="text-[#7952B3]" />
-            <SkillBadge icon={Flame} text="Framer Motion" color="text-accent-purple" />
-            <SkillBadge icon={Sparkles} text="Vanilla CSS" color="text-pink-400" />
+            <SkillBadge icon={Mountain} text="Tailwind CSS" color="text-accent-cyan" isMobile={isMobile} />
+            <SkillBadge icon={Mountain} text="Bootstrap 5" color="text-[#7952B3]" isMobile={isMobile} />
+            <SkillBadge icon={Flame} text="Framer Motion" color="text-accent-purple" isMobile={isMobile} />
+            <SkillBadge icon={Sparkles} text="Vanilla CSS" color="text-pink-400" isMobile={isMobile} />
           </div>
         </motion.div>
 
         {/* 3. BACKEND & INFRASTRUCTURE */}
         <motion.div
-          whileHover={{ y: -5 }}
+          whileHover={isMobile ? {} : { y: -5 }}
           className="col-span-1 md:col-span-2 md:row-span-1 flex flex-col p-8 rounded-[2rem] bg-white/50 dark:bg-[#030305]/60 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.03)] dark:shadow-[0_0_40px_rgba(0,0,0,0.5)] relative overflow-hidden group"
         >
-          <div className="absolute -top-10 -right-10 w-36 h-36 bg-accent-purple/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-accent-purple/20 transition-colors duration-500" />
+          <div className={`absolute -top-10 -right-10 w-36 h-36 bg-accent-purple/10 rounded-full blur-[40px] pointer-events-none ${!isMobile ? 'group-hover:bg-accent-purple/20 transition-colors duration-500' : ''}`} />
           <h3 className="text-xl font-display font-bold text-foreground mb-4 flex items-center gap-3 uppercase tracking-tighter relative z-10">
             <Server className="text-accent-purple" size={24} /> Backend & Tools
           </h3>
           <div className="flex flex-wrap gap-3 relative z-10 mt-auto">
-            <SkillBadge icon={Cpu} text="Spring Boot" color="text-[#6DB33F]" />
-            <SkillBadge icon={Terminal} text="Python" color="text-[#3776AB]" />
-            <SkillBadge icon={Server} text="FastAPI" color="text-accent-cyan" />
-            <SkillBadge icon={Wrench} text="Docker" color="text-[#2496ED]" />
-            <SkillBadge icon={Cpu} text="REST APIs" color="text-muted" />
+            <SkillBadge icon={Cpu} text="Spring Boot" color="text-[#6DB33F]" isMobile={isMobile} />
+            <SkillBadge icon={Terminal} text="Python" color="text-[#3776AB]" isMobile={isMobile} />
+            <SkillBadge icon={Server} text="FastAPI" color="text-accent-cyan" isMobile={isMobile} />
+            <SkillBadge icon={Wrench} text="Docker" color="text-[#2496ED]" isMobile={isMobile} />
+            <SkillBadge icon={Cpu} text="REST APIs" color="text-muted" isMobile={isMobile} />
           </div>
         </motion.div>
 
@@ -139,7 +144,7 @@ export default function TechStack() {
               {[...arsenalTools, ...arsenalTools].map((tool, idx) => (
                 <div
                   key={idx}
-                  className="mx-3 px-5 py-2.5 bg-black/5 dark:bg-white/5 rounded-full border border-black/5 dark:border-white/10 text-xs md:text-sm font-semibold text-foreground/80 tracking-wide hover:text-accent-cyan hover:border-accent-cyan/30 transition-colors shadow-sm"
+                  className={`mx-3 px-5 py-2.5 bg-black/5 dark:bg-white/5 rounded-full border border-black/5 dark:border-white/10 text-xs md:text-sm font-semibold text-foreground/80 tracking-wide transition-colors shadow-sm ${!isMobile ? 'hover:text-accent-cyan hover:border-accent-cyan/30' : ''}`}
                 >
                   {tool}
                 </div>
@@ -150,7 +155,7 @@ export default function TechStack() {
 
         {/* 5. LEARNING RADAR */}
         <motion.div
-          whileHover={{ y: -5 }}
+          whileHover={isMobile ? {} : { y: -5 }}
           className="col-span-1 md:col-span-4 flex flex-col md:flex-row items-center justify-between p-6 md:p-8 rounded-[2rem] bg-white/50 dark:bg-[#030305]/60 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.03)] dark:shadow-[0_0_40px_rgba(0,0,0,0.5)] mt-4 md:mt-2"
         >
           <div className="flex items-center gap-3 mb-4 md:mb-0 text-muted">
