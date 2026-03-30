@@ -6,6 +6,7 @@ import CustomCursor from "@/components/CustomCursor";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import CreativePulse from "@/components/canvas/CreativePulse";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -42,6 +43,7 @@ export default function RootLayout({
             <Navbar />
             <SocialSidebar />
             {children}
+            <Analytics />
           </ThemeProvider>
         </SmoothScrollProvider>
       </body>
