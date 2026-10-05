@@ -57,12 +57,12 @@ export default function Skills() {
 
       {rows.map((group) => (
         <div key={group.title} className="gutter grid grid-cols-1 gap-x-[6vw] gap-y-3 border-b border-line py-[34px] md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
-          <h3 className="skill-title cond text-[clamp(22px,2.7vw,40px)] font-bold uppercase leading-none" data-text={group.title}>
+          <h3 className="skill-title cond text-[clamp(22px,2.7vw,40px)] font-bold uppercase leading-none" data-text={group.title} translate="no">
             {group.title}
           </h3>
           <div>
             {group.body && <p className="mb-3.5 max-w-[62ch] leading-relaxed text-muted">{group.body}</p>}
-            <ul className="skill-tools flex flex-wrap gap-x-5 gap-y-1 text-[clamp(18px,2.16vw,31px)] leading-[1.2]">
+            <ul className="skill-tools flex flex-wrap gap-x-5 gap-y-1 text-[clamp(18px,2.16vw,31px)] leading-[1.2]" translate="no">
               {group.tools.map((tool) => (
                 <li key={tool} className="tool">{tool}</li>
               ))}

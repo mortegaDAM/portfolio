@@ -79,7 +79,7 @@ export default function Work() {
               <h4 className="mb-2.5 mt-6 text-[15px] font-bold tracking-[0.1em]">
                 THE <span className="text-accent">STACK</span>
               </h4>
-              <ul className="flex flex-wrap gap-2">
+              <ul className="flex flex-wrap gap-2" translate="no">
                 {p.stack.map((tool) => (
                   <li key={tool} className="border border-line px-3 py-1.5 text-xs font-semibold">{tool}</li>
                 ))}

@@ -61,7 +61,7 @@ export default function Marquee({ items }: { items: string[] }) {
   }, []);
 
   return (
-    <div ref={wrap} className="overflow-hidden border-y border-line py-[18px]" aria-hidden="true">
+    <div ref={wrap} className="overflow-hidden border-y border-line py-[18px]" aria-hidden="true" translate="no">
       <div ref={track} className="marquee-track cond flex w-max whitespace-nowrap text-[clamp(36px,6.3vw,99px)] font-bold uppercase leading-none will-change-transform">
         {[...items, ...items].map((item, i) => (
           <span key={i} className="px-[0.26em]">{item}</span>

@@ -26,7 +26,8 @@ export default function Kinetic({ text, as = "span", className = "", min = 300, 
   const words = text.split(" ");
 
   return (
-    <Tag ref={ref} className={`kin ${className}`} aria-label={text}>
+    // translate="no": browser translators rewrite each letter span as if it were a word
+    <Tag ref={ref} className={`kin ${className}`} aria-label={text} translate="no">
       {words.map((word, i) => (
         <Fragment key={i}>
           <span className="kin-w" aria-hidden="true">
