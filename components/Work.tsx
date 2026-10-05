@@ -96,10 +96,10 @@ export default function Work() {
 
             <div className="relative pb-[9%] pr-[12%]">
               <div className="work-main relative overflow-hidden border border-line" data-speed="0.5">
-                <Shot shot={p.main} alt={`${p.title} desktop`} sizes="(min-width: 768px) 50vw, 85vw" className="h-auto w-full" blur={p.blur?.main} />
+                <Shot shot={p.main} alt={`${p.title} desktop`} sizes="(min-width: 768px) 50vw, 85vw" className="h-auto w-full" />
               </div>
               <div className="work-mob absolute bottom-0 right-0 aspect-[9/16] w-[22%] overflow-hidden border border-line shadow-[0_24px_50px_-18px_rgba(0,0,0,0.45)]" data-speed="-1.3">
-                <Shot shot={p.mobile} alt={`${p.title} mobile`} sizes="(min-width: 768px) 13vw, 20vw" className="h-full w-full object-cover object-top" blur={p.blur?.mobile} />
+                <Shot shot={p.mobile} alt={`${p.title} mobile`} sizes="(min-width: 768px) 13vw, 20vw" className="h-full w-full object-cover object-top" />
               </div>
             </div>
           </div>

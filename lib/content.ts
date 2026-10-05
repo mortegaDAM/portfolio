@@ -1,5 +1,3 @@
-import type { CSSProperties } from "react";
-
 type Shot = { light: string; dark: string; width: number; height: number };
 
 export type Project = {
@@ -13,8 +11,6 @@ export type Project = {
   stats: [string, string][];
   main: Shot;
   mobile: Shot;
-  // Client photo regions hidden for privacy, as % of each frame
-  blur?: { main: CSSProperties; mobile: CSSProperties };
 };
 
 export const projects: Project[] = [
@@ -48,12 +44,9 @@ export const projects: Project[] = [
       ["4", "Legal Pages"],
       ["SSG", "Rendering"],
     ],
-    main: { light: "/main.png", dark: "/main.png", width: 1818, height: 933 },
-    mobile: { light: "/mobile.png", dark: "/mobile.png", width: 387, height: 841 },
-    blur: {
-      main: { left: "50%", top: "10%", width: "34%", height: "68%" },
-      mobile: { left: 0, right: 0, top: "16%", bottom: "12%" },
-    },
+    // The client photo is blurred in the image files themselves
+    main: { light: "/lydia-main.png", dark: "/lydia-main.png", width: 1818, height: 933 },
+    mobile: { light: "/lydia-mobile.png", dark: "/lydia-mobile.png", width: 387, height: 841 },
   },
 ];
 

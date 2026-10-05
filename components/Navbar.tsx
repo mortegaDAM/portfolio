@@ -27,17 +27,12 @@ export default function Navbar() {
   const [lastYPos, setLastYPos] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
+  const isAbout = pathname === '/about';
 
   useEffect(() => {
-    setMounted(true);
-
-    if (pathname === '/about') {
-      setActiveSection('about');
-      return;
-    }
+    if (isAbout) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -63,7 +58,7 @@ export default function Navbar() {
       clearTimeout(timeoutId);
       observer.disconnect();
     };
-  }, [pathname]);
+  }, [isAbout]);
 
   // Prevent scroll when menu is open
   useEffect(() => {
@@ -105,7 +100,7 @@ export default function Navbar() {
   };
 
   const getLinkClass = (id: string, inMenu = false) => {
-    const isActive = activeSection === id;
+    const isActive = (isAbout ? 'about' : activeSection) === id;
     if (inMenu) {
       return `cond text-5xl font-bold uppercase transition-colors duration-300 ${
         isActive ? "text-accent" : "text-foreground"
@@ -156,15 +151,15 @@ export default function Navbar() {
           <a href={`mailto:${email}`} aria-label="Email" className={`${iconButton} hidden md:flex`}>
             <Mail size={18} />
           </a>
-          {mounted && (
-            <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className={iconButton}
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-          )}
+          {/* Both icons render; the theme class picks one, so no mount check is needed */}
+          <button
+            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+            className={iconButton}
+            aria-label="Toggle theme"
+          >
+            <Sun size={18} className="hidden dark:block" />
+            <Moon size={18} className="dark:hidden" />
+          </button>
 
           {/* Mobile Menu Toggle */}
           <button
