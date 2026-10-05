@@ -3,10 +3,21 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Star, Sun, Moon, Menu, X } from "lucide-react";
+import { Github, Linkedin, Mail, Sun, Moon, Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { email, socials } from "@/lib/content";
+
+const navLinks = [
+  { id: 'home', label: 'Home', href: '/#home', isScroll: true },
+  { id: 'work', label: 'Work', href: '/#work', isScroll: true },
+  { id: 'skills', label: 'Skills', href: '/#skills', isScroll: true },
+  { id: 'about', label: 'About', href: '/about', isScroll: false },
+  { id: 'contact', label: 'Contact', href: '/#contact', isScroll: true },
+];
+
+const iconButton = "flex h-10 w-10 items-center justify-center text-muted transition-colors duration-300 hover:text-foreground";
 
 export default function Navbar() {
   const isMobile = useIsMobile();
@@ -40,7 +51,7 @@ export default function Navbar() {
     );
 
     const sections = ["home", "work", "skills", "contact"];
-    
+
     const timeoutId = setTimeout(() => {
       sections.forEach((section) => {
         const el = document.getElementById(section);
@@ -68,13 +79,10 @@ export default function Navbar() {
     if (isMobile) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (e.clientY < 120) {
-        setIsHoveringTop(true);
-      } else {
-        setIsHoveringTop(false);
-      }
+      const near = e.clientY < 120;
+      setIsHoveringTop((prev) => (prev === near ? prev : near));
     };
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [isMobile]);
 
@@ -96,28 +104,17 @@ export default function Navbar() {
     }
   };
 
-  const pillClasses = "pointer-events-auto backdrop-blur-md border border-white/10 bg-white/[0.03] shadow-sm";
-
-  const getLinkClass = (id: string, isMobile = false) => {
+  const getLinkClass = (id: string, inMenu = false) => {
     const isActive = activeSection === id;
-    if (isMobile) {
-      return `text-3xl font-display font-bold transition-all duration-300 ${
-        isActive ? "text-accent-purple" : "text-foreground opacity-50 hover:opacity-100"
+    if (inMenu) {
+      return `cond text-5xl font-bold uppercase transition-colors duration-300 ${
+        isActive ? "text-accent" : "text-foreground"
       }`;
     }
-    return `cursor-pointer transition-all duration-300 ${isActive
-        ? "text-foreground font-bold drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
-        : "text-muted hover:text-foreground"
-      }`;
+    return `cursor-pointer transition-colors duration-300 ${
+      isActive ? "text-foreground" : "text-muted hover:text-foreground"
+    }`;
   };
-
-  const navLinks = [
-    { id: 'home', label: 'Home', href: '/#home', isScroll: true },
-    { id: 'work', label: 'Work', href: '/#work', isScroll: true },
-    { id: 'skills', label: 'Skills', href: '/#skills', isScroll: true },
-    { id: 'about', label: 'About', href: '/about', isScroll: false },
-    { id: 'contact', label: 'Contact', href: '/#contact', isScroll: true },
-  ];
 
   return (
     <>
@@ -129,44 +126,50 @@ export default function Navbar() {
         initial="visible"
         animate={hidden && !isHoveringTop && !isMenuOpen ? "hidden" : "visible"}
         transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="fixed top-0 inset-x-0 w-full z-50 flex justify-between items-center px-4 md:px-8 py-6 pointer-events-none"
+        className="gutter fixed inset-x-0 top-0 z-50 flex h-16 w-full items-center justify-between border-b border-line bg-background/85 backdrop-blur-md"
       >
-        {/* Left Pill - Logo */}
-        <Link href="/" className={`flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-sans font-bold tracking-[0.2em] transition-transform hover:scale-105 duration-300 ${pillClasses}`}>
-          <Star className="text-accent-purple" fill="currentColor" size={16} /> MORTEGA DEV
+        <Link href="/" className="text-[13px] font-bold tracking-[0.06em]">
+          MORTEGA DEV
         </Link>
 
-        {/* Center Pill - Links (Desktop) */}
-        <div className={`hidden md:flex items-center px-8 py-3.5 rounded-full absolute left-1/2 -translate-x-1/2 ${pillClasses}`}>
-          <ul className="flex items-center gap-8 text-xs font-bold tracking-[0.2em] uppercase">
-            {navLinks.map((link) => (
-              <li key={link.id}>
-                {link.isScroll ? (
-                  <a href={link.href} onClick={(e) => handleScroll(e, link.id)} className={getLinkClass(link.id)}>{link.label}</a>
-                ) : (
-                  <Link href={link.href} className={getLinkClass(link.id)}>{link.label}</Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Links (Desktop) */}
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-[13px] font-medium tracking-[0.06em] md:flex">
+          {navLinks.map((link) => (
+            <li key={link.id}>
+              {link.isScroll ? (
+                <a href={link.href} onClick={(e) => handleScroll(e, link.id)} className={getLinkClass(link.id)}>{link.label}</a>
+              ) : (
+                <Link href={link.href} className={getLinkClass(link.id)}>{link.label}</Link>
+              )}
+            </li>
+          ))}
+        </ul>
 
-        {/* Right Section - Theme Toggle & Mobile Menu */}
-        <div className="flex items-center gap-4">
+        {/* Right Section - Socials, Theme Toggle & Mobile Menu */}
+        <div className="-mr-2.5 flex items-center">
+          <a href={socials.github} target="_blank" rel="noreferrer" aria-label="GitHub" className={`${iconButton} hidden md:flex`}>
+            <Github size={18} />
+          </a>
+          <a href={socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className={`${iconButton} hidden md:flex`}>
+            <Linkedin size={18} />
+          </a>
+          <a href={`mailto:${email}`} aria-label="Email" className={`${iconButton} hidden md:flex`}>
+            <Mail size={18} />
+          </a>
           {mounted && (
             <button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="w-12 h-12 flex items-center justify-center rounded-full hover:scale-110 transition-transform duration-300 text-foreground pointer-events-auto backdrop-blur-md bg-white/[0.03] shadow-sm focus:outline-none border-none"
+              className={iconButton}
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           )}
-          
+
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300 text-foreground pointer-events-auto ${pillClasses}`}
+            className={`${iconButton} md:hidden`}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -182,27 +185,27 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed inset-0 z-40 bg-background/90 backdrop-blur-2xl md:hidden overflow-hidden flex flex-col items-center justify-center"
+            className="gutter fixed inset-0 z-40 flex flex-col justify-center overflow-hidden bg-background md:hidden"
           >
-            <ul className="flex flex-col items-center gap-10">
+            <ul className="flex flex-col gap-6">
               {navLinks.map((link, i) => (
                 <motion.li
                   key={link.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.1 }}
+                  transition={{ delay: 0.1 + i * 0.06 }}
                 >
                   {link.isScroll ? (
-                    <a 
-                      href={link.href} 
-                      onClick={(e) => handleScroll(e, link.id)} 
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleScroll(e, link.id)}
                       className={getLinkClass(link.id, true)}
                     >
                       {link.label}
                     </a>
                   ) : (
-                    <Link 
-                      href={link.href} 
+                    <Link
+                      href={link.href}
                       onClick={() => setIsMenuOpen(false)}
                       className={getLinkClass(link.id, true)}
                     >
@@ -212,9 +215,18 @@ export default function Navbar() {
                 </motion.li>
               ))}
             </ul>
-            
-            {/* Background decorative element */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--accent-purple-rgb),0.1)_0%,transparent_70%)] pointer-events-none" />
+
+            <div className="-ml-2.5 mt-12 flex items-center border-t border-line pt-6">
+              <a href={socials.github} target="_blank" rel="noreferrer" aria-label="GitHub" className={iconButton}>
+                <Github size={20} />
+              </a>
+              <a href={socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className={iconButton}>
+                <Linkedin size={20} />
+              </a>
+              <a href={`mailto:${email}`} aria-label="Email" className={iconButton}>
+                <Mail size={20} />
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

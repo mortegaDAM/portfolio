@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Mona_Sans } from "next/font/google";
 import Navbar from "@/components/Navbar";
-import SocialSidebar from "@/components/SocialSidebar";
-import CustomCursor from "@/components/CustomCursor";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
-import CreativePulse from "@/components/canvas/CreativePulse";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+// Variable on weight and width: the kinetic headlines animate both axes
+const monaSans = Mona_Sans({
+  variable: "--font-mona",
   subsets: ["latin"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
+  axes: ["wdth"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -36,15 +31,12 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={monaSans.variable}
     >
       <body className="antialiased bg-background text-foreground min-h-screen selection:bg-accent selection:text-white">
         <SmoothScrollProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-            <CreativePulse />
-            <CustomCursor />
             <Navbar />
-            <SocialSidebar />
             {children}
             <Analytics />
           </ThemeProvider>
