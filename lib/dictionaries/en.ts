@@ -1,0 +1,182 @@
+import type { JourneyItem, Project, SkillGroup } from "@/lib/dictionaries/types";
+import { arsenal, links, shots, stacks } from "@/lib/dictionaries/projects";
+
+const projects: Project[] = [
+  {
+    id: "encuadre",
+    n: "01",
+    title: "ENCUADRE",
+    status: "dev",
+    summary: "A platform to find a registered health psychologist and do the whole therapy process online, in one place.",
+    heading: ["THE ", "IDEA", ""],
+    body: "Choosing a therapist usually means scrolling through directories with no way to tell who fits you. Encuadre starts with a short questionnaire and connects patients with verified psychologists, then keeps the whole process in one place: real-time messaging, scheduling, video sessions and the practitioner's day-to-day work. I'm building the web app and its own API end to end.",
+    stack: stacks.encuadre,
+    media: { kind: "desktop", ...shots.encuadre },
+  },
+  {
+    id: "recmnd",
+    n: "02",
+    title: "RECMND",
+    status: "dev",
+    summary: "A mobile social network of recommendation lists, signed by people you trust instead of algorithms.",
+    heading: ["THE ", "IDEA", ""],
+    body: "When you don't know what to watch, read or where to go, you ask a friend. Recmnd turns that into short, curated lists: each one signed by a person, with a personal note and a rating for every pick, across films, series, books, music, podcasts and places. You follow people, save lists and comment on them. Built for iOS and Android.",
+    stack: stacks.recmnd,
+    media: { kind: "phones", shots: shots.recmnd },
+  },
+  {
+    id: "internship",
+    n: "03",
+    title: "INTERNSHIP PROJECT",
+    status: "confidential",
+    summary: "Full stack development internship, late 2025 to early 2026.",
+    heading: ["MY ", "ROLE", ""],
+    body: "I worked as part of the company's development team on a real product, across both frontend and backend. The project is confidential, so I don't show screenshots, names or any detail about the product itself.",
+    stack: stacks.internship,
+    media: { kind: "redacted" },
+  },
+  {
+    id: "portfolio",
+    n: "04",
+    title: "MORTEGA DEV PORTFOLIO",
+    summary: "High-end personal portfolio built with modern web technologies.",
+    heading: ["THE ", "PROBLEM", " & ARCHITECTURE"],
+    body: "I wanted to create a digital presence that stands out from generic templates. To achieve this, I built a custom portfolio from scratch focused on extreme performance, kinetic variable typography that reacts to the cursor and to scroll, and scroll-driven animations using GSAP. The architecture uses Next.js App Router for optimal SEO and fast load times.",
+    stack: stacks.portfolio,
+    stats: [
+      ["100", "Lighthouse desktop"],
+      ["0", "Layout shift"],
+      ["2", "Languages"],
+      ["2", "Themes"],
+    ],
+    links: links.portfolio,
+    media: { kind: "desktop", ...shots.portfolio },
+  },
+  {
+    id: "lydia",
+    n: "05",
+    title: "LYDIA PSICOLOGÍA",
+    summary: "Professional psychology practice website designed for a real client, focused on warmth, trust, and conversion.",
+    heading: ["THE ", "CHALLENGE", ""],
+    body: "A psychology professional needed a web presence that transmits trust, warmth, and professionalism from the very first glance. The site needed to be fully GDPR compliant with a clear privacy, legal notice, and cookies policy pages, all while being optimized for SEO to attract new patients organically.",
+    stack: stacks.lydia,
+    stats: [
+      ["Real", "Client"],
+      ["GDPR", "Compliant"],
+      ["4", "Legal pages"],
+      ["SSG", "Rendering"],
+    ],
+    links: links.lydia,
+    media: { kind: "desktop", ...shots.lydia },
+  },
+];
+
+const journey: JourneyItem[] = [
+  { years: "2016–2020", title: "Degree in Translation and Interpreting", place: "University", body: "Languages became a craft: English C1, French B1 and German A2." },
+  { years: "2021–2024", title: "Sales Associate", place: "Real Madrid Store · Legends Hospitality", body: "Customer service and teamwork, every single day." },
+  { years: "2024–2025", title: "Store Manager", place: "Real Madrid Store · Legends Hospitality", body: "Leading and coordinating teams of up to 20 people." },
+  { years: "2024–2026", title: "Multiplatform App Development (DAM)", place: "Universidad Internacional de La Rioja", body: "Java, SQL and Python, then modern web and mobile development." },
+  { years: "2025–2026", title: "Full Stack Development Internship", place: "Confidential project", body: "Part of a development team, frontend and backend, on a real product." },
+  { years: "Now", title: "Building Encuadre and Recmnd", place: "Madrid", body: "Open to my first developer role: on-site, hybrid or remote.", now: true },
+];
+
+const skillGroups: SkillGroup[] = [
+  {
+    title: "FRONTEND CORE",
+    body: "Architecting robust, scalable, and type-safe interfaces with a focus on maintainable component systems. I bridge the gap between complex logic and seamless UX, leveraging advanced patterns for both SPAs and SSR applications.",
+    tools: ["React", "Next.js", "React Native", "Angular", "TypeScript", "JavaScript"],
+  },
+  {
+    title: "STYLING & ANIMATION",
+    body: "Pixel-perfect UIs, 60fps animations, responsive systems.",
+    tools: ["Tailwind CSS", "GSAP", "Framer Motion", "Bootstrap 5", "Vanilla CSS"],
+  },
+  {
+    title: "BACKEND & TOOLS",
+    body: "",
+    tools: ["Spring Boot", "NestJS", "Python", "FastAPI", "PostgreSQL", "Supabase", "Docker", "REST APIs"],
+  },
+  { title: "CURRENTLY LEARNING", body: "", tools: ["RAG (Retrieval-Augmented Generation)", "AI & LLM Integration", "Java (deepening)"] },
+  { title: "LANGUAGES", body: "", tools: ["Spanish · native", "English · C1", "French · B1", "German · A2"] },
+];
+
+export const en = {
+  meta: {
+    title: "Mario Ortega | Full Stack Developer",
+    description: "Junior full stack developer in Madrid. React, Next.js, React Native, Spring Boot and Python. Projects, journey and contact.",
+    aboutTitle: "About | Mario Ortega",
+    aboutDescription: "From leading retail teams of up to 20 people to full stack development.",
+  },
+  nav: {
+    work: "Work",
+    journey: "Journey",
+    skills: "Skills",
+    about: "About",
+    contact: "Contact",
+    theme: "Toggle theme",
+    menu: "Toggle menu",
+    switchTo: "Español",
+    switchToShort: "ES",
+  },
+  hero: {
+    role: "FullStack Software Developer | Junior",
+    tagline: "Transforming complex business requirements into scalable, high-performance web experiences. Full Stack Developer bridging the gap between clean code and real-world impact.",
+    available: "Open to work",
+    where: "Madrid · on-site, hybrid or remote",
+    cv: "Download CV",
+  },
+  work: {
+    heading: "WORK",
+    dev: "In development",
+    confidential: "Confidential",
+    site: "Visit site",
+    code: "Source code",
+    stack: ["THE ", "STACK"] as [string, string],
+    redacted: "Under NDA. Nothing about the product is shown here.",
+    projects,
+  },
+  journey: { heading: "JOURNEY", items: journey },
+  skills: { heading: "SKILLS & ARSENAL", groups: skillGroups, arsenal },
+  contact: {
+    lines: ["LET'S BUILD", "SOMETHING", "EXTRAORDINARY"] as [string, string, string],
+    label: "Let's build something extraordinary",
+    body: "Whether you have a project in mind, need a Full Stack Developer for your team, or just want to say hi, my inbox is always open.",
+    form: {
+      name: "Name",
+      email: "Email",
+      message: "Message",
+      send: "Send message",
+      sending: "Sending",
+      sent: "Thanks, your message is on its way. I'll reply to your email soon.",
+      invalid: "Please fill in your name, a valid email and a message of at least 10 characters.",
+      failed: "The message couldn't be sent. Try again, or write to me directly at",
+      again: "Send another",
+    },
+    direct: "Or write to me directly",
+    copy: "Copy email",
+    copied: "Copied",
+    cv: "Download CV",
+  },
+  footer: { rights: "© 2026 MARIO ORTEGA. ALL RIGHTS RESERVED." },
+  about: {
+    lines: ["BEYOND", "THE CODE"] as [string, string],
+    label: "Beyond the code",
+    intro: "I am a recently graduated Full Stack Developer, deeply motivated to kickstart my career in software engineering across any technological field. Beyond a solid technical foundation, I bring proven leadership and teamwork experience from my previous career, where I successfully managed and scaled teams of up to 20 people. My analytical mindset allows me to bridge the gap between business requirements and scalable, maintainable code.",
+    blocks: [
+      {
+        title: "A New Chapter",
+        body: "Having just graduated from my software development studies, I am bringing a fresh perspective and an insatiable hunger for learning. I don't close doors to any specialization, whether it's frontend polishing, backend architecture, or cloud infrastructure: I am ready to dive deep and contribute from day one.",
+      },
+      {
+        title: "Leadership & Synergy",
+        body: "Before my journey into programming, I built a successful career where I climbed the ranks through sheer responsibility and dedication. I successfully managed and led teams of up to 20 people. This experience gave me invaluable soft skills: conflict resolution, empathetic leadership, cross-functional teamwork, and the ability to maintain high morale under pressure.",
+      },
+      {
+        title: "The Missing Piece",
+        body: "Combining my proven track record of responsibility and team leadership with my newly acquired technical skills makes me a unique asset. I don't just write code; I understand team dynamics, project lifecycles, and how to align individual efforts with business goals. Let's build something extraordinary together.",
+      },
+    ],
+    cta: "Get in touch",
+  },
+  cvFile: "/cv/Mario-Ortega-CV-EN.pdf",
+};

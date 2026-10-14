@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import Kinetic from "@/components/Kinetic";
+import Giant from "@/components/Giant";
 import Marquee from "@/components/Marquee";
-import { arsenalTools, learning, skillGroups } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n";
 import { gsap, ScrollTrigger, useGsap } from "@/lib/useGsap";
 
 const SCRAMBLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ/&";
@@ -22,9 +22,7 @@ function scramble(el: HTMLElement) {
   requestAnimationFrame(step);
 }
 
-const rows = [...skillGroups, { title: "CURRENTLY LEARNING", body: "", tools: learning }];
-
-export default function Skills() {
+export default function Skills({ t }: { t: Dictionary["skills"] }) {
   const ref = useRef<HTMLElement>(null);
 
   useGsap(ref, (q) => {
@@ -41,21 +39,11 @@ export default function Skills() {
 
   return (
     <section id="skills" ref={ref} className="relative">
-      <div className="gutter pb-6 pt-28">
-      <Kinetic
-        as="h2"
-        text="SKILLS & ARSENAL"
-        className="giant kin-row h-[0.84em] select-none text-[9.36vw] leading-[0.84] tracking-[-0.02em]"
-        min={200}
-        max={800}
-        wide={0.35}
-        sw
-      />
-      </div>
+      <Giant text={t.heading} />
 
-      <Marquee items={arsenalTools} />
+      <Marquee items={t.arsenal} />
 
-      {rows.map((group) => (
+      {t.groups.map((group) => (
         <div key={group.title} className="gutter grid grid-cols-1 gap-x-[6vw] gap-y-3 border-b border-line py-[34px] md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
           <h3 className="skill-title cond text-[clamp(22px,2.7vw,40px)] font-bold uppercase leading-none" data-text={group.title} translate="no">
             {group.title}

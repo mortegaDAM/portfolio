@@ -8,6 +8,7 @@
   --color-accent: var(--accent);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-ok: var(--ok);
 
   --font-sans: var(--font-mona), "Arial Narrow", system-ui, sans-serif;
 }
@@ -18,6 +19,7 @@
     --foreground: #1a1118;
     --muted: #64565f;
     --accent: #c8125f;
+    --ok: #18794e;
     --line: rgba(26, 17, 24, 0.18);
 
     --accent-rgb: 200, 18, 95;
@@ -29,6 +31,7 @@
     --foreground: #f3ecf0;
     --muted: #ad9ea8;
     --accent: #ff5aa0;
+    --ok: #4ade80;
     --line: rgba(243, 236, 240, 0.18);
 
     --accent-rgb: 255, 90, 160;

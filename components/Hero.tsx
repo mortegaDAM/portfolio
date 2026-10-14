@@ -1,11 +1,14 @@
 "use client";
 
 import { useRef } from "react";
+import { ArrowDownToLine } from "lucide-react";
+import { track } from "@vercel/analytics";
 import Kinetic from "@/components/Kinetic";
 import { shock } from "@/lib/kinetic";
 import { gsap, useGsap } from "@/lib/useGsap";
+import type { Dictionary } from "@/lib/i18n";
 
-export default function Hero() {
+export default function Hero({ t, cv }: { t: Dictionary["hero"]; cv: string }) {
   const ref = useRef<HTMLElement>(null);
 
   useGsap(ref, (q) => {
@@ -31,13 +34,30 @@ export default function Hero() {
         <Kinetic text="MARIO" className="hero-line kin-row h-[0.8em]" min={220} max={800} wide={1} idle />
         <Kinetic text="ORTEGA" className="hero-line kin-row h-[0.8em]" min={220} max={800} wide={1} idle />
       </h1>
-      <div className="gutter mt-6 grid grid-cols-1 gap-x-10 gap-y-3 border-t border-line pb-9 pt-6 md:grid-cols-2">
-        <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-accent">
-          FullStack Software Developer | Junior
-        </h2>
-        <p className="max-w-[46ch] text-[clamp(16px,1.5vw,21px)] leading-[1.45]">
-          Transforming complex business requirements into scalable, high-performance web experiences. Full Stack Developer bridging the gap between clean code and real-world impact.
-        </p>
+      <div className="gutter mt-6 grid grid-cols-1 gap-x-10 gap-y-5 border-t border-line pb-9 pt-6 md:grid-cols-2">
+        <div className="flex flex-col gap-3">
+          <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-accent">{t.role}</h2>
+          <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm">
+            <span className="relative flex h-2 w-2" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60 motion-reduce:animate-none" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-ok" />
+            </span>
+            <span className="font-semibold">{t.available}</span>
+            <span className="text-muted">{t.where}</span>
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-6">
+          <p className="max-w-[46ch] text-[clamp(16px,1.5vw,21px)] leading-[1.45]">{t.tagline}</p>
+          <a
+            href={cv}
+            download
+            onClick={() => track("cv_download", { from: "hero" })}
+            className="group inline-flex items-center gap-3 border border-foreground px-6 py-3.5 text-[13px] font-bold uppercase tracking-[0.14em] transition-colors duration-300 hover:bg-foreground hover:text-background"
+          >
+            {t.cv}
+            <ArrowDownToLine size={16} className="transition-transform duration-300 group-hover:translate-y-0.5" />
+          </a>
+        </div>
       </div>
     </section>
   );

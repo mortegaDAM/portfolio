@@ -7,19 +7,21 @@ import { Github, Linkedin, Mail, Sun, Moon, Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { email, socials } from "@/lib/content";
-
-const navLinks = [
-  { id: 'home', label: 'Home', href: '/#home', isScroll: true },
-  { id: 'work', label: 'Work', href: '/#work', isScroll: true },
-  { id: 'skills', label: 'Skills', href: '/#skills', isScroll: true },
-  { id: 'about', label: 'About', href: '/about', isScroll: false },
-  { id: 'contact', label: 'Contact', href: '/#contact', isScroll: true },
-];
+import { email, socials } from "@/lib/i18n";
+import type { Dictionary, Locale } from "@/lib/i18n";
 
 const iconButton = "flex h-10 w-10 items-center justify-center text-muted transition-colors duration-300 hover:text-foreground";
 
-export default function Navbar() {
+export default function Navbar({ lang, t }: { lang: Locale; t: Dictionary["nav"] }) {
+  const navLinks = [
+    { id: "work", label: t.work, href: `/${lang}#work`, isScroll: true },
+    { id: "journey", label: t.journey, href: `/${lang}#journey`, isScroll: true },
+    { id: "skills", label: t.skills, href: `/${lang}#skills`, isScroll: true },
+    { id: "about", label: t.about, href: `/${lang}/about`, isScroll: false },
+    { id: "contact", label: t.contact, href: `/${lang}#contact`, isScroll: true },
+  ];
+  const other: Locale = lang === "es" ? "en" : "es";
+
   const isMobile = useIsMobile();
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
@@ -29,7 +31,12 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
-  const isAbout = pathname === '/about';
+  const isAbout = pathname.endsWith("/about");
+  // Same page in the other language; the cookie keeps the choice on later visits
+  const otherHref = pathname.replace(/^\/(en|es)(?=\/|$)/, `/${other}`) || `/${other}`;
+  const rememberLanguage = () => {
+    document.cookie = `NEXT_LOCALE=${other}; path=/; max-age=31536000; samesite=lax`;
+  };
 
   useEffect(() => {
     if (isAbout) return;
@@ -45,7 +52,7 @@ export default function Navbar() {
       { rootMargin: "-40% 0px -40% 0px" }
     );
 
-    const sections = ["home", "work", "skills", "contact"];
+    const sections = ["home", "work", "journey", "skills", "contact"];
 
     const timeoutId = setTimeout(() => {
       sections.forEach((section) => {
@@ -123,12 +130,12 @@ export default function Navbar() {
         transition={{ duration: 0.35, ease: "easeInOut" }}
         className="gutter fixed inset-x-0 top-0 z-50 flex h-16 w-full items-center justify-between border-b border-line bg-background/85 backdrop-blur-md"
       >
-        <Link href="/" className="text-[13px] font-bold tracking-[0.06em]">
+        <Link href={`/${lang}`} className="text-[13px] font-bold tracking-[0.06em]" translate="no">
           MORTEGA DEV
         </Link>
 
         {/* Links (Desktop) */}
-        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-[13px] font-medium tracking-[0.06em] md:flex">
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-[13px] font-medium tracking-[0.06em] lg:flex">
           {navLinks.map((link) => (
             <li key={link.id}>
               {link.isScroll ? (
@@ -151,11 +158,14 @@ export default function Navbar() {
           <a href={`mailto:${email}`} aria-label="Email" className={`${iconButton} hidden md:flex`}>
             <Mail size={18} />
           </a>
+          <Link href={otherHref} hrefLang={other} onClick={rememberLanguage} aria-label={t.switchTo} className={`${iconButton} text-xs font-bold tracking-[0.08em]`}>
+            {t.switchToShort}
+          </Link>
           {/* Both icons render; the theme class picks one, so no mount check is needed */}
           <button
             onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
             className={iconButton}
-            aria-label="Toggle theme"
+            aria-label={t.theme}
           >
             <Sun size={18} className="hidden dark:block" />
             <Moon size={18} className="dark:hidden" />
@@ -164,8 +174,9 @@ export default function Navbar() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`${iconButton} md:hidden`}
-            aria-label="Toggle menu"
+            className={`${iconButton} lg:hidden`}
+            aria-label={t.menu}
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -180,7 +191,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="gutter fixed inset-0 z-40 flex flex-col justify-center overflow-hidden bg-background md:hidden"
+            className="gutter fixed inset-0 z-40 flex flex-col justify-center overflow-hidden bg-background lg:hidden"
           >
             <ul className="flex flex-col gap-6">
               {navLinks.map((link, i) => (
