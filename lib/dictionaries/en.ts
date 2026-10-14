@@ -126,8 +126,8 @@ export const en = {
   hero: {
     role: "FullStack Software Developer | Junior",
     tagline: "Transforming complex business requirements into scalable, high-performance web experiences. Full Stack Developer bridging the gap between clean code and real-world impact.",
-    available: "Open to work",
-    where: "Madrid · on-site, hybrid or remote",
+    available: "Junior Java Developer",
+    where: "Currently working · Madrid",
     cv: "Download CV",
   },
   work: {
@@ -166,11 +166,11 @@ export const en = {
   about: {
     lines: ["BEYOND", "THE CODE"] as [string, string],
     label: "Beyond the code",
-    intro: "I am a recently graduated Full Stack Developer, deeply motivated to kickstart my career in software engineering across any technological field. Beyond a solid technical foundation, I bring proven leadership and teamwork experience from my previous career, where I successfully managed and scaled teams of up to 20 people. My analytical mindset allows me to bridge the gap between business requirements and scalable, maintainable code.",
+    intro: "I am a Junior Java Developer with a degree in Multiplatform App Development and a full stack internship behind me, working every day with Java and Spring Boot. Beyond a solid technical foundation, I bring proven leadership and teamwork experience from my previous career, where I successfully managed and scaled teams of up to 20 people. My analytical mindset allows me to bridge the gap between business requirements and scalable, maintainable code.",
     blocks: [
       {
         title: "A New Chapter",
-        body: "Having just graduated from my software development studies, I am bringing a fresh perspective and an insatiable hunger for learning. I don't close doors to any specialization, whether it's frontend polishing, backend architecture, or cloud infrastructure: I am ready to dive deep and contribute from day one.",
+        body: "After finishing my software development studies and a full stack internship, I now work as a Junior Java Developer with Spring Boot, Power BI, Jaspersoft Studio and DocPath. I keep a fresh perspective and an insatiable hunger for learning, and I don't close doors to any specialization, whether it's frontend polishing, backend architecture, or cloud infrastructure.",
       },
       {
         title: "Leadership & Synergy",

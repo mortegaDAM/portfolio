@@ -127,8 +127,8 @@ export const es: Dictionary = {
   hero: {
     role: "Desarrollador de software full stack | Junior",
     tagline: "Convierto requisitos de negocio complejos en experiencias web escalables y de alto rendimiento. Desarrollador full stack que une el código limpio con el impacto real.",
-    available: "Disponible",
-    where: "Madrid · presencial, híbrido o remoto",
+    available: "Programador Java junior",
+    where: "En activo · Madrid",
     cv: "Descargar CV",
   },
   work: {
@@ -167,11 +167,11 @@ export const es: Dictionary = {
   about: {
     lines: ["MÁS ALLÁ", "DEL CÓDIGO"],
     label: "Más allá del código",
-    intro: "Soy desarrollador full stack recién titulado y con muchas ganas de empezar mi carrera en ingeniería de software, en cualquier ámbito tecnológico. Además de una base técnica sólida, aporto experiencia demostrada en liderazgo y trabajo en equipo de mi carrera anterior, donde dirigí equipos de hasta 20 personas. Mi forma analítica de pensar me ayuda a unir los requisitos de negocio con un código escalable y fácil de mantener.",
+    intro: "Soy programador Java junior, titulado en Desarrollo de Aplicaciones Multiplataforma y con unas prácticas full stack a mis espaldas, y trabajo a diario con Java y Spring Boot. Además de una base técnica sólida, aporto experiencia demostrada en liderazgo y trabajo en equipo de mi carrera anterior, donde dirigí equipos de hasta 20 personas. Mi forma analítica de pensar me ayuda a unir los requisitos de negocio con un código escalable y fácil de mantener.",
     blocks: [
       {
         title: "Un nuevo capítulo",
-        body: "Acabo de terminar mis estudios de desarrollo de software y llego con una mirada fresca y muchas ganas de aprender. No cierro la puerta a ninguna especialidad, ya sea pulir el frontend, la arquitectura de backend o la infraestructura cloud: estoy listo para meterme a fondo y aportar desde el primer día.",
+        body: "Después de terminar mis estudios de desarrollo de software y unas prácticas full stack, ahora trabajo como programador Java junior con Spring Boot, Power BI, Jaspersoft Studio y DocPath. Mantengo una mirada fresca y muchas ganas de aprender, y no cierro la puerta a ninguna especialidad, ya sea pulir el frontend, la arquitectura de backend o la infraestructura cloud.",
       },
       {
         title: "Liderazgo y equipo",
