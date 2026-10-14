@@ -77,7 +77,7 @@ const journey: JourneyItem[] = [
   { years: "2024–2025", title: "Store Manager", place: "Real Madrid Store · Legends Hospitality", body: "Leading and coordinating teams of up to 20 people." },
   { years: "2024–2026", title: "Multiplatform App Development (DAM)", place: "Universidad Internacional de La Rioja", body: "Java, SQL and Python, then modern web and mobile development." },
   { years: "2025–2026", title: "Full Stack Development Internship", place: "Confidential project", body: "Part of a development team, frontend and backend, on a real product." },
-  { years: "Now", title: "Building Encuadre and Recmnd", place: "Madrid", body: "Open to my first developer role: on-site, hybrid or remote.", now: true },
+  { years: "Now", title: "Junior Java Developer", place: "Current role", body: "Java and Spring Boot, together with Power BI, Jaspersoft Studio and DocPath. Encuadre and Recmnd keep growing on the side.", now: true },
 ];
 
 const skillGroups: SkillGroup[] = [
@@ -94,7 +94,12 @@ const skillGroups: SkillGroup[] = [
   {
     title: "BACKEND & TOOLS",
     body: "",
-    tools: ["Spring Boot", "NestJS", "Python", "FastAPI", "PostgreSQL", "Supabase", "Docker", "REST APIs"],
+    tools: ["Java", "Spring Boot", "NestJS", "Python", "FastAPI", "PostgreSQL", "Supabase", "Docker", "REST APIs"],
+  },
+  {
+    title: "DATA & REPORTING",
+    body: "",
+    tools: ["Power BI", "Jaspersoft Studio", "DocPath", "SQL"],
   },
   { title: "CURRENTLY LEARNING", body: "", tools: ["RAG (Retrieval-Augmented Generation)", "AI & LLM Integration", "Java (deepening)"] },
   { title: "LANGUAGES", body: "", tools: ["Spanish · native", "English · C1", "French · B1", "German · A2"] },

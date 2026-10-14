@@ -78,7 +78,7 @@ const journey: JourneyItem[] = [
   { years: "2024–2025", title: "Encargado de tienda", place: "Real Madrid Store · Legends Hospitality", body: "Dirección y coordinación de equipos de hasta 20 personas." },
   { years: "2024–2026", title: "Desarrollo de Aplicaciones Multiplataforma (DAM)", place: "Universidad Internacional de La Rioja", body: "Java, SQL y Python, y después desarrollo web y móvil moderno." },
   { years: "2025–2026", title: "Prácticas de desarrollo full stack", place: "Proyecto confidencial", body: "En un equipo de desarrollo, frontend y backend, sobre un producto real." },
-  { years: "Hoy", title: "Construyendo Encuadre y Recmnd", place: "Madrid", body: "Buscando mi primer puesto como desarrollador: presencial, híbrido o remoto.", now: true },
+  { years: "Hoy", title: "Programador Java Junior", place: "Puesto actual", body: "Java y Spring Boot, junto con Power BI, Jaspersoft Studio y DocPath. En paralelo sigo desarrollando Encuadre y Recmnd.", now: true },
 ];
 
 const skillGroups: SkillGroup[] = [
@@ -95,7 +95,12 @@ const skillGroups: SkillGroup[] = [
   {
     title: "BACKEND Y HERRAMIENTAS",
     body: "",
-    tools: ["Spring Boot", "NestJS", "Python", "FastAPI", "PostgreSQL", "Supabase", "Docker", "APIs REST"],
+    tools: ["Java", "Spring Boot", "NestJS", "Python", "FastAPI", "PostgreSQL", "Supabase", "Docker", "APIs REST"],
+  },
+  {
+    title: "DATOS E INFORMES",
+    body: "",
+    tools: ["Power BI", "Jaspersoft Studio", "DocPath", "SQL"],
   },
   { title: "APRENDIENDO AHORA", body: "", tools: ["RAG (Retrieval-Augmented Generation)", "Integración de IA y LLM", "Java (en profundidad)"] },
   { title: "IDIOMAS", body: "", tools: ["Español · nativo", "Inglés · C1", "Francés · B1", "Alemán · A2"] },

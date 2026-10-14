@@ -31,11 +31,11 @@ export const stacks = {
 
 export const links = {
   portfolio: [{ kind: "code" as const, href: "https://github.com/mortegaDAM/portfolio" }],
-  lydia: [{ kind: "site" as const, href: "https://web-lydia.vercel.app" }],
+  lydia: [{ kind: "site" as const, href: "https://lydiapsicologia.com" }],
 };
 
 export const arsenal = [
   "Next.js", "React", "React Native", "Expo", "TypeScript", "JavaScript (ES6+)", "Tailwind CSS", "GSAP", "Framer Motion",
   "Bootstrap 5", "Angular", "Spring Boot", "Java", "NestJS", "Python", "FastAPI", "Node.js", "PostgreSQL", "Prisma",
-  "Supabase", "SQL", "Docker", "REST APIs", "Git", "GitHub", "Vercel", "SEO",
+  "Supabase", "SQL", "Power BI", "Jaspersoft Studio", "DocPath", "Docker", "REST APIs", "Git", "GitHub", "Vercel", "SEO",
 ];
